@@ -1,0 +1,60 @@
+<section class="bg-white">
+  <div class="site-container section grid gap-12 lg:grid-cols-2">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h1 class="display mt-3"><%= site.legalName %></h1>
+      <p class="mt-4 text-ink-muted">Mumbai, Maharashtra, India</p>
+      <p class="mt-1 text-ink-muted">Founder: <%= site.founder %></p>
+      <dl class="mt-8 space-y-3 text-sm">
+        <div><dt class="font-semibold">Phone</dt><dd class="text-ink-muted"><%= site.contact.phone || 'To be added once verified' %></dd></div>
+        <div><dt class="font-semibold">Email</dt><dd class="text-ink-muted"><%= site.contact.email || 'To be added once verified' %></dd></div>
+        <div><dt class="font-semibold">Office address</dt><dd class="text-ink-muted"><%= site.contact.address || 'To be added once verified' %></dd></div>
+        <div><dt class="font-semibold">Business hours</dt><dd class="text-ink-muted"><%= site.contact.hours || 'To be added once verified' %></dd></div>
+      </dl>
+    </div>
+    <div class="overflow-hidden rounded-card bg-surface-mint">
+      <% if (site.contact.mapsEmbed) { %>
+        <iframe title="Office location map" class="h-80 w-full border-0" src="<%= site.contact.mapsEmbed %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <% } else { %>
+        <div class="flex h-80 items-center justify-center p-8 text-center text-ink-muted">
+          Google Maps will appear here when GOOGLE_MAPS_EMBED_URL is configured.
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="site-container max-w-3xl">
+    <h2 class="display">Write to us</h2>
+    <%- include('../partials/flash') %>
+    <form class="mt-8 grid gap-4" method="post" action="/api/contact" data-form>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <p class="hidden" aria-hidden="true"><label>Company website <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
+      <div>
+        <label class="label" for="name">Name</label>
+        <input class="field" id="name" name="name" required minlength="2" />
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="label" for="email">Email</label>
+          <input class="field" id="email" name="email" type="email" required />
+        </div>
+        <div>
+          <label class="label" for="phone">Phone</label>
+          <input class="field" id="phone" name="phone" type="tel" />
+        </div>
+      </div>
+      <div>
+        <label class="label" for="subject">Subject</label>
+        <input class="field" id="subject" name="subject" required />
+      </div>
+      <div>
+        <label class="label" for="message">Message</label>
+        <textarea class="field min-h-[8rem]" id="message" name="message" required minlength="10"></textarea>
+      </div>
+      <button class="btn-primary justify-self-start" type="submit">Send message</button>
+      <p class="text-sm" data-form-status></p>
+    </form>
+  </div>
+</section>

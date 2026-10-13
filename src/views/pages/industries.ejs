@@ -1,0 +1,18 @@
+<section class="bg-white">
+  <div class="site-container section">
+    <p class="eyebrow">Industries</p>
+    <h1 class="display mt-3">Workforce solutions across industries</h1>
+    <p class="lede mt-4">From frontline workforce requirements to specialized professional hiring, we help organizations build teams suited to their operational needs.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="site-container grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <% site.industries.forEach((industry) => { %>
+      <article class="card-hover min-h-[9rem]">
+        <h2 class="font-display text-lg font-semibold"><%= industry %></h2>
+        <p class="mt-2 text-sm text-ink-muted">Hiring and manpower support tailored to the rhythms of this sector.</p>
+      </article>
+    <% }) %>
+  </div>
+</section>
+<%- include('../partials/cta') %>

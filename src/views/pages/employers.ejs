@@ -1,0 +1,83 @@
+<section class="bg-white">
+  <div class="site-container section">
+    <p class="eyebrow">Employers</p>
+    <h1 class="display mt-3">Need the right people for your business?</h1>
+    <p class="lede mt-4">Tell us what your organization needs, and our recruitment team can help you explore a suitable workforce solution.</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn-primary" href="#enquiry">Request Manpower</a>
+      <a class="btn-secondary" href="/contact">Talk to Our Team</a>
+    </div>
+  </div>
+</section>
+
+<section id="enquiry" class="section">
+  <div class="site-container max-w-3xl">
+    <h2 class="display">Hiring enquiry</h2>
+    <%- include('../partials/flash') %>
+    <form class="mt-8 grid gap-4" method="post" action="/api/employer-enquiry" data-form>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <p class="hidden" aria-hidden="true"><label>Company website <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="label" for="companyName">Company name</label>
+          <input class="field" id="companyName" name="companyName" required />
+        </div>
+        <div>
+          <label class="label" for="contactPerson">Contact person</label>
+          <input class="field" id="contactPerson" name="contactPerson" required />
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="label" for="email">Business email</label>
+          <input class="field" id="email" name="email" type="email" required />
+        </div>
+        <div>
+          <label class="label" for="phone">Phone</label>
+          <input class="field" id="phone" name="phone" type="tel" required />
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="label" for="industry">Industry</label>
+          <select class="field" id="industry" name="industry" required>
+            <option value="">Select</option>
+            <% site.industries.forEach((industry) => { %>
+              <option><%= industry %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div>
+          <label class="label" for="positions">Number of positions</label>
+          <input class="field" id="positions" name="positions" required />
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="label" for="hiringType">Hiring type</label>
+          <select class="field" id="hiringType" name="hiringType" required>
+            <option value="">Select</option>
+            <option>Permanent</option>
+            <option>Temporary</option>
+            <option>Contract</option>
+            <option>Mixed / to discuss</option>
+          </select>
+        </div>
+        <div>
+          <label class="label" for="location">Location</label>
+          <input class="field" id="location" name="location" required />
+        </div>
+      </div>
+      <div>
+        <label class="label" for="jobDescription">Job description</label>
+        <textarea class="field min-h-[8rem]" id="jobDescription" name="jobDescription" required minlength="20"></textarea>
+      </div>
+      <div>
+        <label class="label" for="message">Message</label>
+        <textarea class="field min-h-[6rem]" id="message" name="message"></textarea>
+      </div>
+      <button class="btn-primary justify-self-start" type="submit">Request Manpower</button>
+      <p class="text-sm" data-form-status></p>
+    </form>
+  </div>
+</section>

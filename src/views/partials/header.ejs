@@ -1,0 +1,49 @@
+<header data-nav class="sticky top-0 z-50 border-b border-green-dark/5 bg-white/95 backdrop-blur">
+  <div class="site-container flex h-[4.5rem] items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-3" aria-label="<%= site.shortName %> home">
+      <img src="/images/logo-mark.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      <span class="leading-tight">
+        <span class="block font-display text-lg font-bold tracking-tight text-green-dark">PRANAM</span>
+        <span class="block text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">Consultancy</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary">
+      <% site.nav.forEach((item) => { %>
+        <a
+          href="<%= item.href %>"
+          class="text-sm font-medium transition hover:text-green-dark <%= currentPath === item.href ? 'text-green-dark' : 'text-ink-muted' %>"
+        ><%= item.label %></a>
+      <% }) %>
+    </nav>
+
+    <div class="hidden items-center gap-2 lg:flex">
+      <a class="btn-secondary !py-2.5 !px-4" href="/candidates">Find a Job</a>
+      <a class="btn-primary !py-2.5 !px-4" href="/employers">Find Talent</a>
+    </div>
+
+    <button
+      type="button"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-green-dark/10 lg:hidden"
+      data-nav-toggle
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="Open menu"
+    >
+      <span class="sr-only">Menu</span>
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h14M4 11h14M4 15h14"/></svg>
+    </button>
+  </div>
+
+  <div id="mobile-nav" data-nav-panel class="hidden border-t border-green-dark/5 bg-white lg:hidden">
+    <nav class="site-container flex flex-col gap-1 py-6" aria-label="Mobile">
+      <% site.nav.forEach((item) => { %>
+        <a href="<%= item.href %>" class="rounded-2xl px-3 py-3 text-base font-medium text-ink hover:bg-surface-mint"><%= item.label %></a>
+      <% }) %>
+      <div class="mt-4 grid gap-2">
+        <a class="btn-secondary" href="/candidates">Find a Job</a>
+        <a class="btn-primary" href="/employers">Find Talent</a>
+      </div>
+    </nav>
+  </div>
+</header>

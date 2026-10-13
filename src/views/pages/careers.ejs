@@ -1,0 +1,59 @@
+<section class="bg-white">
+  <div class="site-container section">
+    <p class="eyebrow">Careers</p>
+    <h1 class="display mt-3">Opportunities</h1>
+    <p class="lede mt-4">Listings below are <strong>demo content</strong> to illustrate how live jobs will appear. They are not real vacancies and do not represent actual employers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="site-container">
+    <form class="card mb-8 grid gap-3 md:grid-cols-5" method="get" action="/careers">
+      <input class="field" name="q" value="<%= filters.q %>" placeholder="Search" />
+      <select class="field" name="location">
+        <option value="">Location</option>
+        <% options.locations.forEach((item) => { %>
+          <option <%= filters.location === item ? 'selected' : '' %>><%= item %></option>
+        <% }) %>
+      </select>
+      <select class="field" name="category">
+        <option value="">Category</option>
+        <% options.categories.forEach((item) => { %>
+          <option <%= filters.category === item ? 'selected' : '' %>><%= item %></option>
+        <% }) %>
+      </select>
+      <select class="field" name="experience">
+        <option value="">Experience</option>
+        <% options.experiences.forEach((item) => { %>
+          <option <%= filters.experience === item ? 'selected' : '' %>><%= item %></option>
+        <% }) %>
+      </select>
+      <select class="field" name="type">
+        <option value="">Employment type</option>
+        <% options.types.forEach((item) => { %>
+          <option <%= filters.type === item ? 'selected' : '' %>><%= item %></option>
+        <% }) %>
+      </select>
+      <button class="btn-primary md:col-span-5 justify-self-start" type="submit">Filter</button>
+    </form>
+
+    <div class="grid gap-4">
+      <% if (!jobs.length) { %>
+        <p class="text-ink-muted">No demo listings match those filters.</p>
+      <% } %>
+      <% jobs.forEach((job) => { %>
+        <article class="card-hover">
+          <p class="text-xs font-semibold uppercase tracking-widest text-green-fresh">Demo listing</p>
+          <h2 class="mt-2 font-display text-xl font-semibold"><%= job.title %></h2>
+          <p class="mt-1 text-sm text-ink-muted"><%= job.company %> · <%= job.location %> · <%= job.employmentType %> · <%= job.experience %></p>
+          <p class="mt-3 text-sm text-ink-muted"><%= job.excerpt %></p>
+          <p class="mt-2 text-xs text-ink-muted">Posted <%= job.postedDate %></p>
+          <div class="mt-4 flex gap-3">
+            <a class="btn-secondary !py-2" href="/jobs/<%= job.slug %>">View Job</a>
+            <a class="btn-primary !py-2" href="/candidates?role=<%= encodeURIComponent(job.title) %>">Apply Now</a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>

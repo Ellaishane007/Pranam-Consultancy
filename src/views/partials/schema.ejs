@@ -1,0 +1,19 @@
+<script type="application/ld+json">
+<%- JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  "name": site.legalName,
+  "alternateName": site.shortName,
+  "foundingDate": String(site.foundedYear),
+  "founder": { "@type": "Person", "name": site.founder },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": site.city,
+    "addressRegion": site.state,
+    "addressCountry": "IN"
+  },
+  "areaServed": "IN",
+  "url": env.siteUrl,
+  "description": "HR and manpower consulting from Mumbai, India."
+}) %>
+</script>

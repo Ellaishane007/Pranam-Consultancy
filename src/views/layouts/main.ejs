@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= typeof title !== 'undefined' ? title : site.legalName %></title>
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : site.tagline %>" />
+    <link rel="canonical" href="<%= typeof canonical !== 'undefined' ? canonical : env.siteUrl %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%= typeof title !== 'undefined' ? title : site.legalName %>" />
+    <meta property="og:description" content="<%= typeof description !== 'undefined' ? description : site.tagline %>" />
+    <meta property="og:url" content="<%= typeof canonical !== 'undefined' ? canonical : env.siteUrl %>" />
+    <meta property="og:site_name" content="<%= site.shortName %>" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/images/logo-mark.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <%- include('../partials/schema') %>
+  </head>
+  <body class="min-h-screen">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <%- include('../partials/header') %>
+    <main id="main">
+      <%- body %>
+    </main>
+    <%- include('../partials/footer') %>
+    <script src="/js/app.js" defer></script>
+  </body>
+</html>

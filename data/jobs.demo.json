@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "demo-warehouse-associate-navi-mumbai",
+    "title": "Warehouse Associate",
+    "company": "Confidential client (demo)",
+    "location": "Navi Mumbai",
+    "employmentType": "Temporary",
+    "experience": "0-2 years",
+    "category": "Logistics",
+    "postedDate": "2026-08-12",
+    "excerpt": "Demo listing for operational warehouse support. This is sample content only and is not a live vacancy."
+  },
+  {
+    "slug": "demo-hr-executive-mumbai",
+    "title": "HR Executive",
+    "company": "Confidential client (demo)",
+    "location": "Mumbai",
+    "employmentType": "Permanent",
+    "experience": "2-5 years",
+    "category": "Corporate",
+    "postedDate": "2026-08-20",
+    "excerpt": "Demo listing for an HR coordination role. This is sample content only and is not a live vacancy."
+  },
+  {
+    "slug": "demo-sales-associate-thane",
+    "title": "Retail Sales Associate",
+    "company": "Confidential client (demo)",
+    "location": "Thane",
+    "employmentType": "Permanent",
+    "experience": "0-2 years",
+    "category": "Retail",
+    "postedDate": "2026-08-28",
+    "excerpt": "Demo listing for a customer-facing retail role. This is sample content only and is not a live vacancy."
+  },
+  {
+    "slug": "demo-accounts-assistant-mumbai",
+    "title": "Accounts Assistant",
+    "company": "Confidential client (demo)",
+    "location": "Mumbai",
+    "employmentType": "Permanent",
+    "experience": "1-3 years",
+    "category": "Corporate",
+    "postedDate": "2026-09-01",
+    "excerpt": "Demo listing for accounts support. This is sample content only and is not a live vacancy."
+  },
+  {
+    "slug": "demo-facility-supervisor-mumbai",
+    "title": "Facility Supervisor",
+    "company": "Confidential client (demo)",
+    "location": "Mumbai",
+    "employmentType": "Contract",
+    "experience": "3-6 years",
+    "category": "Facility Management",
+    "postedDate": "2026-09-03",
+    "excerpt": "Demo listing for facility operations. This is sample content only and is not a live vacancy."
+  }
+]
