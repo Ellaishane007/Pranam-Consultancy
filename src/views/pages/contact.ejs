@@ -1,5 +1,5 @@
 <section class="bg-white">
-  <div class="site-container section grid gap-12 lg:grid-cols-2">
+  <div class="site-container section max-w-3xl">
     <div>
       <p class="eyebrow">Contact</p>
       <h1 class="display mt-3"><%= site.legalName %></h1>
@@ -25,29 +25,6 @@
         <div><dt class="font-semibold">Office address</dt><dd class="text-ink-muted"><%= site.contact.address || `${site.officeArea}, ${site.city}` %></dd></div>
         <div><dt class="font-semibold">Business hours</dt><dd class="text-ink-muted"><%= site.contact.hours || 'To be added once verified' %></dd></div>
       </dl>
-      <% if (site.contact.linkedin || site.contact.instagram) { %>
-        <div class="mt-6 flex flex-wrap gap-3" aria-label="Social media">
-          <% if (site.contact.linkedin) { %>
-            <a class="inline-flex items-center gap-2 rounded-full border border-green-dark/10 px-4 py-2 text-sm text-ink-muted hover:border-green-light hover:text-green-dark" href="<%= site.contact.linkedin %>" target="_blank" rel="noopener noreferrer">
-              <%- include('../partials/contact-icon', { name: 'linkedin' }) %><span>LinkedIn</span>
-            </a>
-          <% } %>
-          <% if (site.contact.instagram) { %>
-            <a class="inline-flex items-center gap-2 rounded-full border border-green-dark/10 px-4 py-2 text-sm text-ink-muted hover:border-green-light hover:text-green-dark" href="<%= site.contact.instagram %>" target="_blank" rel="noopener noreferrer">
-              <%- include('../partials/contact-icon', { name: 'instagram' }) %><span>Instagram</span>
-            </a>
-          <% } %>
-        </div>
-        <% } %>
-    </div>
-    <div class="overflow-hidden rounded-card bg-surface-mint">
-      <% if (site.contact.mapsEmbed) { %>
-        <iframe title="Office location map" class="h-80 w-full border-0" src="<%= site.contact.mapsEmbed %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <% } else { %>
-        <div class="flex h-80 items-center justify-center p-8 text-center text-ink-muted">
-          Google Maps will appear here when GOOGLE_MAPS_EMBED_URL is configured.
-        </div>
-      <% } %>
     </div>
   </div>
 </section>

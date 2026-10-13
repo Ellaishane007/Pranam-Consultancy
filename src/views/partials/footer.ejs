@@ -28,24 +28,6 @@
       <p class="text-sm font-semibold text-ink">Connect</p>
       <ul class="mt-4 space-y-3 text-sm text-ink-muted">
         <li>
-          <% if (site.contact.linkedin) { %>
-            <a class="inline-flex items-center gap-2 hover:text-green-dark" href="<%= site.contact.linkedin %>" target="_blank" rel="noopener noreferrer">
-              <%- include('./contact-icon', { name: 'linkedin' }) %><span>LinkedIn</span>
-            </a>
-          <% } else { %>
-            <span class="inline-flex items-center gap-2"><%- include('./contact-icon', { name: 'linkedin' }) %><span>LinkedIn — to be added</span></span>
-          <% } %>
-        </li>
-        <li>
-          <% if (site.contact.instagram) { %>
-            <a class="inline-flex items-center gap-2 hover:text-green-dark" href="<%= site.contact.instagram %>" target="_blank" rel="noopener noreferrer">
-              <%- include('./contact-icon', { name: 'instagram' }) %><span>Instagram</span>
-            </a>
-          <% } else { %>
-            <span class="inline-flex items-center gap-2"><%- include('./contact-icon', { name: 'instagram' }) %><span>Instagram — to be added</span></span>
-          <% } %>
-        </li>
-        <li>
           <% if (site.contact.email) { %>
             <a class="inline-flex items-center gap-2 hover:text-green-dark" href="mailto:<%= site.contact.email %>">
               <%- include('./contact-icon', { name: 'email' }) %><span><%= site.contact.email %></span>

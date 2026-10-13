@@ -39,7 +39,7 @@ Generate a secret with:
 node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"
 ```
 
-Set verified `CONTACT_*`, `LINKEDIN_URL`, `INSTAGRAM_URL`, and `GOOGLE_MAPS_EMBED_URL` values as needed. Resume uploads are private files and are never served as static assets. Mount persistent, access-controlled storage at `/app/uploads` when running the container. Back up the MongoDB data and uploaded resumes according to your retention policy.
+Set verified `CONTACT_*` values as needed. Resume uploads are private files and are never served as static assets. Mount persistent, access-controlled storage at `/app/uploads` when running the container. Back up the MongoDB data and uploaded resumes according to your retention policy.
 
 The `/health` endpoint reports process liveness. `/ready` reports readiness and returns HTTP 503 if MongoDB is unavailable.
 

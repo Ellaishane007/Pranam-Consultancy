@@ -47,6 +47,11 @@ test("leadership, client and contact details render in the shared pages", async 
   const contact = await (await fetch(`${baseUrl}/contact`)).text();
   assert.match(contact, /Goregaon West/);
   assert.match(contact, /viewBox="0 0 24 24"/);
+  const contactContent = contact.match(/<main id="main">([\s\S]*?)<\/main>/)[1];
+  assert.doesNotMatch(contactContent, /LinkedIn|Instagram|Office location map|Google Maps/);
+  const footer = contact.match(/<footer[\s\S]*?<\/footer>/)[0];
+  assert.doesNotMatch(footer, /LinkedIn|Instagram/);
+  assert.match(footer, /Email — to be added|pranam301125@gmail\.com/);
 });
 
 test("career search returns relevant multi-word matches", async () => {

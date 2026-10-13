@@ -3,12 +3,12 @@ const founders = [
   {
     name: "Prashant Chavan",
     title: "Founder",
-    image: "/images/prashant-portrait.svg"
+    image: "/images/prashant-portrait.png"
   },
   {
     name: "Poonam Phatak Chavan",
     title: "Co-Founder",
-    image: "/images/poonam-portrait.svg"
+    image: "/images/poonam-portrait.png"
   }
 ];
 
@@ -30,10 +30,7 @@ module.exports = {
     phone: trim(process.env.CONTACT_PHONE),
     email: trim(process.env.CONTACT_EMAIL),
     address: trim(process.env.CONTACT_ADDRESS),
-    hours: trim(process.env.BUSINESS_HOURS),
-    linkedin: trim(process.env.LINKEDIN_URL),
-    instagram: trim(process.env.INSTAGRAM_URL),
-    mapsEmbed: trim(process.env.GOOGLE_MAPS_EMBED_URL)
+    hours: trim(process.env.BUSINESS_HOURS)
   },
   nav: [
     { href: "/", label: "Home" },
