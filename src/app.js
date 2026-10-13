@@ -15,6 +15,7 @@ ensureUploadDirs();
 
 function createApp() {
   const app = express();
+  app.engine("ejs", require("ejs").__express);
   app.set("view engine", "ejs");
   app.set("views", process.env.NETLIFY
     ? path.join(process.cwd(), "src", "views")

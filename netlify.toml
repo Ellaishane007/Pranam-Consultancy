@@ -9,6 +9,7 @@
 [functions]
   node_bundler = "esbuild"
   included_files = ["src/views/**"]
+  external_node_modules = ["ejs"]
 
 [[redirects]]
   from = "/*"
