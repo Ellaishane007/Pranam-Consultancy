@@ -1,45 +1,74 @@
-# PRANAM Consultancy website
+# PRANAM Consultancy
 
-Corporate website for **PRANAM Consultancy**, a Mumbai-based HR and manpower consulting firm founded around 2026 by Prashant Chavan.
+Corporate website for PRANAM Consultancy, an HR and manpower consulting firm based in Goregaon West, Mumbai.
 
-Stack: Node.js, Express, EJS, Tailwind CSS. Forms can persist to MongoDB or to local JSON files.
+**Stack:** Node.js 20+, Express, EJS, Tailwind CSS, MongoDB.
 
-## Requirements
+## Local development
 
-- Node.js 20 or later
-- Optional: MongoDB
+1. Install Node.js 20 or later.
+2. Copy `.env.example` to `.env` and keep `NODE_ENV=development`.
+3. Install dependencies with `npm ci`.
+4. Start the development server and CSS watcher with `npm run dev`.
+5. Open [http://localhost:3000](http://localhost:3000).
 
-## Setup
+MongoDB is optional for local development. Without `MONGODB_URI`, form submissions are written to `data/local/`; resume files are saved under `uploads/resumes/`. Both directories are excluded from Git. Local JSON persistence is single-instance development storage, not a production database.
+
+## Checks and production build
 
 ```bash
-cp .env.example .env
-npm install
-npm run build:css
-npm run dev
+npm test
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Run the production server with `npm start`.
 
-Set `SESSION_SECRET` to a long random value before production. Leave `MONGODB_URI` empty to store contact, candidate, and employer submissions in `data/local/` (gitignored).
+## Production configuration
 
-Resumes are saved under `uploads/resumes/` (not publicly served).
+Production startup requires:
 
-## Scripts
+- `NODE_ENV=production`
+- `SITE_URL` set to the public HTTPS origin, without a path
+- `SESSION_SECRET` set to a unique random value of at least 32 characters
+- `MONGODB_URI` set to a reachable MongoDB deployment
+- `TRUST_PROXY` set to the number of trusted reverse-proxy hops (for example, `1` behind one proxy)
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Watch CSS + restart the server |
-| `npm run build:css` | Minify Tailwind output |
-| `npm start` | Production server (`NODE_ENV=production`) |
+Generate a secret with:
 
-## Production notes
+```bash
+node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"
+```
 
-- Serve behind HTTPS.
-- Set `SITE_URL`, `SESSION_SECRET`, and `MONGODB_URI`.
-- Add verified `CONTACT_*` and `GOOGLE_MAPS_EMBED_URL` values when available.
-- Do not expose `/uploads` as static files.
-- Job cards on `/careers` are demo listings until real vacancies are published.
+Set verified `CONTACT_*`, `LINKEDIN_URL`, `INSTAGRAM_URL`, and `GOOGLE_MAPS_EMBED_URL` values as needed. Resume uploads are private files and are never served as static assets. Mount persistent, access-controlled storage at `/app/uploads` when running the container. Back up the MongoDB data and uploaded resumes according to your retention policy.
 
-## Architecture for later
+The `/health` endpoint reports process liveness. `/ready` reports readiness and returns HTTP 503 if MongoDB is unavailable.
 
-Models and `src/services/storage.js` are ready for an admin dashboard (applications, enquiries, messages). Do not add public download routes for resumes.
+## Docker deployment
+
+Build the production image:
+
+```bash
+docker build -t pranam-consultancy .
+```
+
+Run behind an HTTPS-terminating reverse proxy, supplying secrets through your deployment platform (not in the image or source tree). Example:
+
+```bash
+docker run --name pranam-consultancy \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e SITE_URL=https://www.example.com \
+  -e SESSION_SECRET="<generated-random-secret>" \
+  -e MONGODB_URI="<mongodb-connection-string>" \
+  -e TRUST_PROXY=1 \
+  -v pranam-uploads:/app/uploads \
+  pranam-consultancy
+```
+
+Replace the example hostname and values. Configure the proxy to forward HTTPS and client IP information correctly. Do not publish the MongoDB connection string in logs or documentation.
+
+## Content and launch checks
+
+- Career listings are explicitly marked as demo content until replaced with current vacancies.
+- Review the Privacy Policy and Terms with qualified counsel and confirm retention, contact, and data-subject request procedures before accepting real candidate information.
+- Confirm company naming, founding date, leadership details, client references, and all public contact details before launch.

@@ -20,6 +20,19 @@ function errorHandler(err, req, res, next) {
   const status = err.status || 500;
   const isForm = req.path.startsWith("/api/");
 
+  if (status >= 500) {
+    if (envIsDev()) {
+      console.error(err);
+    } else {
+      console.error("Request failed.", {
+        method: req.method,
+        path: req.path,
+        status,
+        error: err.name || "Error"
+      });
+    }
+  }
+
   if (isForm) {
     res.status(status).json({
       ok: false,
@@ -27,10 +40,6 @@ function errorHandler(err, req, res, next) {
       errors: err.details || undefined
     });
     return;
-  }
-
-  if (envIsDev()) {
-    console.error(err);
   }
 
   res.status(status).render("pages/error", {

@@ -4,17 +4,18 @@
       <p class="eyebrow">About us</p>
       <h1 class="display mt-3">A Mumbai firm built around people and work</h1>
       <p class="lede mt-5">
-        PRANAM Consultancy Service Pvt Ltd was founded around 2025 by Prashant Chavan & Poonam Phatak. From Mumbai, Maharashtra, we support organisations with recruitment, staffing, payroll, compliance, and broader workforce requirements.
+        <%= site.legalName %> was founded around <%= site.foundedYear %> by <%= site.founder %> and <%= site.coFounder %>. Based in <%= site.officeArea %>, <%= site.city %>, we support organisations with recruitment, staffing, payroll, compliance, and broader workforce requirements.
       </p>
       <p class="mt-4 leading-relaxed text-ink-muted">
         Our work is straightforward: understand what a business needs, understand what a candidate is looking for, and coordinate a hiring process that is careful, practical, and respectful of both.
       </p>
     </div>
-    <img
-      src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1100&q=80"
-      alt="Team conversation in a contemporary office"
-      class="h-96 w-full rounded-card object-cover"
-    />
+    <div class="image-frame h-96 w-full rounded-card">
+      <img
+        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1100&q=80"
+        alt="Team conversation in a contemporary office"
+      />
+    </div>
   </div>
 </section>
 
@@ -30,23 +31,36 @@
     </article>
     <article class="card">
       <h2 class="font-display text-xl font-semibold">Where we work</h2>
-      <p class="mt-3 text-sm text-ink-muted">Headquartered in Mumbai, with pan-India service capability across industries and workforce types.</p>
+      <p class="mt-3 text-sm text-ink-muted">Based in Goregaon West, Mumbai, with pan-India service capability across industries and workforce types.</p>
     </article>
   </div>
 </section>
 
 <section class="section bg-white">
-  <div class="site-container grid items-center gap-10 lg:grid-cols-2">
-    <div class="rounded-card bg-surface-mint p-8">
-      <p class="text-sm text-green-dark">Portrait placeholder</p>
-      <p class="mt-24 font-display text-2xl text-ink"><%= site.founder %></p>
-      <p class="text-sm text-ink-muted">Founder</p>
-    </div>
+  <div class="site-container">
     <div>
       <h2 class="display">Leadership</h2>
       <p class="mt-5 leading-relaxed text-ink-muted">
-        Prashant Chavan leads the organisation with a focus on reliable manpower consulting — from permanent and temporary staffing to payroll, compliance, and recruitment process support. The firm’s identity is practical rather than promotional: people, process, and long-term working relationships.
+        Prashant Chavan is the Founder and Poonam Phatak Chavan is the Co-Founder of PRANAM Consultancy. Together, they support practical workforce needs through recruitment, staffing, payroll, compliance, and long-term manpower support.
       </p>
+    </div>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      <% site.founders.forEach((person) => { %>
+        <article class="card grid gap-6 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] sm:items-center">
+          <div class="image-frame aspect-[4/5] w-full rounded-card">
+            <img
+              src="<%= person.image %>"
+              alt="Illustrative portrait of <%= person.name %>"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <p class="eyebrow"><%= person.title %></p>
+            <h3 class="mt-2 font-display text-2xl font-semibold text-ink"><%= person.name %></h3>
+            <p class="mt-3 text-sm text-ink-muted"><%= site.legalName %></p>
+          </div>
+        </article>
+      <% }); %>
     </div>
   </div>
 </section>

@@ -1,11 +1,26 @@
 const trim = (value) => (typeof value === "string" ? value.trim() : "");
+const founders = [
+  {
+    name: "Prashant Chavan",
+    title: "Founder",
+    image: "/images/prashant-portrait.svg"
+  },
+  {
+    name: "Poonam Phatak Chavan",
+    title: "Co-Founder",
+    image: "/images/poonam-portrait.svg"
+  }
+];
 
 module.exports = {
   legalName: "PRANAM Consultancy",
   shortName: "PRANAM Consultancy",
-  founder: "Prashant Chavan",
+  founder: founders[0].name,
+  coFounder: founders[1].name,
+  founders,
   foundedYear: 2026,
   city: "Mumbai",
+  officeArea: "Goregaon West",
   state: "Maharashtra",
   country: "India",
   industry: "Human Resources & Manpower Consulting",

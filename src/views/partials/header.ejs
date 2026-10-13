@@ -1,19 +1,41 @@
 <header data-nav class="sticky top-0 z-50 border-b border-green-dark/5 bg-white/95 backdrop-blur">
   <div class="site-container flex h-[4.5rem] items-center justify-between gap-4">
-    <a href="/" class="flex items-center gap-3" aria-label="<%= site.shortName %> home">
-      <img src="/images/logo-mark.svg" alt="" width="40" height="40" class="h-10 w-10" />
-      <span class="leading-tight">
+    <a href="/" class="brand-link flex items-center gap-3" aria-label="<%= site.shortName %> home">
+      <span class="brand-mark flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white">
+        <img src="/images/logo-mark.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      </span>
+      <span class="brand-copy leading-tight">
         <span class="block font-display text-lg font-bold tracking-tight text-green-dark">PRANAM</span>
-        <span class="block text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">Consultancy</span>
+        <span class="brand-subtitle block text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">Consultancy</span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary">
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
       <% site.nav.forEach((item) => { %>
-        <a
-          href="<%= item.href %>"
-          class="text-sm font-medium transition hover:text-green-dark <%= currentPath === item.href ? 'text-green-dark' : 'text-ink-muted' %>"
-        ><%= item.label %></a>
+        <% if (item.href === '/services') { %>
+          <div class="nav-dropdown">
+            <a
+              href="<%= item.href %>"
+              class="nav-link text-sm font-medium <%= currentPath === item.href ? 'text-green-dark' : 'text-ink-muted' %>"
+              <% if (currentPath === item.href) { %>aria-current="page"<% } %>
+            >
+              <%= item.label %>
+              <svg class="nav-dropdown-icon ml-1 h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="nav-dropdown-menu" aria-label="Services">
+              <a href="/services" class="nav-dropdown-item font-semibold">All services</a>
+              <% site.services.forEach((service) => { %>
+                <a href="/services#<%= service.slug %>" class="nav-dropdown-item"><%= service.title %></a>
+              <% }) %>
+            </div>
+          </div>
+        <% } else { %>
+          <a
+            href="<%= item.href %>"
+            class="nav-link text-sm font-medium <%= currentPath === item.href ? 'text-green-dark' : 'text-ink-muted' %>"
+            <% if (currentPath === item.href) { %>aria-current="page"<% } %>
+          ><%= item.label %></a>
+        <% } %>
       <% }) %>
     </nav>
 
@@ -31,14 +53,14 @@
       aria-label="Open menu"
     >
       <span class="sr-only">Menu</span>
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h14M4 11h14M4 15h14"/></svg>
+      <svg class="menu-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h14M4 11h14M4 15h14"/></svg>
     </button>
   </div>
 
   <div id="mobile-nav" data-nav-panel class="hidden border-t border-green-dark/5 bg-white lg:hidden">
     <nav class="site-container flex flex-col gap-1 py-6" aria-label="Mobile">
       <% site.nav.forEach((item) => { %>
-        <a href="<%= item.href %>" class="rounded-2xl px-3 py-3 text-base font-medium text-ink hover:bg-surface-mint"><%= item.label %></a>
+        <a href="<%= item.href %>" class="nav-link rounded-2xl px-3 py-3 text-base font-medium text-ink" <% if (currentPath === item.href) { %>aria-current="page"<% } %>><%= item.label %></a>
       <% }) %>
       <div class="mt-4 grid gap-2">
         <a class="btn-secondary" href="/candidates">Find a Job</a>

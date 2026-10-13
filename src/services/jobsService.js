@@ -9,14 +9,23 @@ function findJob(slug) {
 }
 
 function filterJobs({ location, category, experience, type, q } = {}) {
+  const terms = String(q || "").trim().toLowerCase().split(/\s+/).filter(Boolean);
   return allJobs().filter((job) => {
     if (location && job.location !== location) return false;
     if (category && job.category !== category) return false;
     if (experience && job.experience !== experience) return false;
     if (type && job.employmentType !== type) return false;
-    if (q) {
-      const hay = `${job.title} ${job.excerpt} ${job.location} ${job.category}`.toLowerCase();
-      if (!hay.includes(String(q).toLowerCase())) return false;
+    if (terms.length) {
+      const hay = [
+        job.title,
+        job.excerpt,
+        job.location,
+        job.category,
+        job.experience,
+        job.employmentType,
+        job.company
+      ].join(" ").toLowerCase();
+      if (!terms.every((term) => hay.includes(term))) return false;
     }
     return true;
   });

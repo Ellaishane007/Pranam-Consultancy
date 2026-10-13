@@ -27,7 +27,7 @@ function about(_req, res) {
     ...pageMeta(
       "/about",
       `About Us | ${site.shortName}`,
-      `${site.legalName} is a Mumbai-based HR and manpower consulting firm founded around 2026 by ${site.founder}.`
+      `${site.legalName} is an HR and manpower consulting firm based in ${site.officeArea}, ${site.city}, founded around ${site.foundedYear} by ${site.founder} and ${site.coFounder}.`
     )
   });
 }
@@ -77,7 +77,7 @@ function contact(_req, res) {
     ...pageMeta(
       "/contact",
       `Contact Us | ${site.shortName}`,
-      "Contact PRANAM Consultancy Service in Mumbai, Maharashtra, India."
+      `Contact PRANAM Consultancy Service in ${site.officeArea}, ${site.city}, ${site.state}, India.`
     )
   });
 }
@@ -97,6 +97,7 @@ function careers(req, res) {
       "Review demo job listings and learn how to apply through PRANAM Consultancy. Live vacancies will appear here when published."
     ),
     jobs: filterJobs(filters),
+    suggestedJobs: allJobs().sort((a, b) => b.postedDate.localeCompare(a.postedDate)),
     filters,
     options: jobFilters()
   });

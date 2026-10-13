@@ -3,14 +3,42 @@
     <div>
       <p class="eyebrow">Contact</p>
       <h1 class="display mt-3"><%= site.legalName %></h1>
-      <p class="mt-4 text-ink-muted">Mumbai, Maharashtra, India</p>
-      <p class="mt-1 text-ink-muted">Founder: <%= site.founder %></p>
+      <p class="mt-4 text-ink-muted"><%= site.officeArea %>, <%= site.city %>, <%= site.state %>, <%= site.country %></p>
+      <p class="mt-1 text-ink-muted">Founder: <%= site.founder %> · Co-Founder: <%= site.coFounder %></p>
       <dl class="mt-8 space-y-3 text-sm">
-        <div><dt class="font-semibold">Phone</dt><dd class="text-ink-muted"><%= site.contact.phone || 'To be added once verified' %></dd></div>
-        <div><dt class="font-semibold">Email</dt><dd class="text-ink-muted"><%= site.contact.email || 'To be added once verified' %></dd></div>
-        <div><dt class="font-semibold">Office address</dt><dd class="text-ink-muted"><%= site.contact.address || 'To be added once verified' %></dd></div>
+        <div>
+          <dt class="inline-flex items-center gap-2 font-semibold"><%- include('../partials/contact-icon', { name: 'phone' }) %>Phone</dt>
+          <dd class="mt-1 text-ink-muted">
+            <% if (site.contact.phone) { %>
+              <a class="hover:text-green-dark" href="tel:<%= site.contact.phone.replace(/[^+\d]/g, '') %>"><%= site.contact.phone %></a>
+            <% } else { %>To be added once verified<% } %>
+          </dd>
+        </div>
+        <div>
+          <dt class="inline-flex items-center gap-2 font-semibold"><%- include('../partials/contact-icon', { name: 'email' }) %>Email</dt>
+          <dd class="mt-1 text-ink-muted">
+            <% if (site.contact.email) { %>
+              <a class="hover:text-green-dark" href="mailto:<%= site.contact.email %>"><%= site.contact.email %></a>
+            <% } else { %>To be added once verified<% } %>
+          </dd>
+        </div>
+        <div><dt class="font-semibold">Office address</dt><dd class="text-ink-muted"><%= site.contact.address || `${site.officeArea}, ${site.city}` %></dd></div>
         <div><dt class="font-semibold">Business hours</dt><dd class="text-ink-muted"><%= site.contact.hours || 'To be added once verified' %></dd></div>
       </dl>
+      <% if (site.contact.linkedin || site.contact.instagram) { %>
+        <div class="mt-6 flex flex-wrap gap-3" aria-label="Social media">
+          <% if (site.contact.linkedin) { %>
+            <a class="inline-flex items-center gap-2 rounded-full border border-green-dark/10 px-4 py-2 text-sm text-ink-muted hover:border-green-light hover:text-green-dark" href="<%= site.contact.linkedin %>" target="_blank" rel="noopener noreferrer">
+              <%- include('../partials/contact-icon', { name: 'linkedin' }) %><span>LinkedIn</span>
+            </a>
+          <% } %>
+          <% if (site.contact.instagram) { %>
+            <a class="inline-flex items-center gap-2 rounded-full border border-green-dark/10 px-4 py-2 text-sm text-ink-muted hover:border-green-light hover:text-green-dark" href="<%= site.contact.instagram %>" target="_blank" rel="noopener noreferrer">
+              <%- include('../partials/contact-icon', { name: 'instagram' }) %><span>Instagram</span>
+            </a>
+          <% } %>
+        </div>
+        <% } %>
     </div>
     <div class="overflow-hidden rounded-card bg-surface-mint">
       <% if (site.contact.mapsEmbed) { %>

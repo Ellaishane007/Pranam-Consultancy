@@ -1,5 +1,17 @@
 const { validateContact, validateCandidate, validateEmployer } = require("../validators/forms");
 const storage = require("../services/storage");
+const fs = require("fs/promises");
+
+async function removeResume(file) {
+  if (!file) return;
+  try {
+    await fs.unlink(file.path);
+  } catch (err) {
+    if (err.code !== "ENOENT") {
+      console.error("Unable to remove an unsubmitted resume.", err);
+    }
+  }
+}
 
 function wantsJson(req) {
   return req.xhr || (req.headers.accept || "").includes("application/json") || req.path.startsWith("/api/");
@@ -21,6 +33,7 @@ async function contact(req, res, next) {
 }
 
 async function jobApplication(req, res, next) {
+  let saved = false;
   try {
     if (!req.file) {
       const err = new Error("Please attach your resume (PDF, DOC, or DOCX).");
@@ -34,6 +47,7 @@ async function jobApplication(req, res, next) {
       resumePath: req.file.filename,
       originalFilename: req.file.originalname
     });
+    saved = true;
     if (wantsJson(req)) {
       res.json({ ok: true, message: "Application received. Our team will review your profile." });
       return;
@@ -41,6 +55,7 @@ async function jobApplication(req, res, next) {
     req.session.flash = { type: "success", text: "Application received. Our team will review your profile." };
     res.redirect("/candidates");
   } catch (err) {
+    if (!saved) await removeResume(req.file);
     next(err);
   }
 }

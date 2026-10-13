@@ -20,13 +20,14 @@
     <div class="relative reveal reveal-delay-2">
       <div class="absolute -left-8 -top-8 h-40 w-40 rounded-full bg-green-light/40 blur-3xl"></div>
       <div class="absolute -bottom-10 -right-6 h-48 w-48 rounded-full bg-green-fresh/25 blur-3xl"></div>
-      <img
-        src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=1200&q=80"
-        alt="Professionals in a discussion during a workplace meeting"
-        class="relative z-10 h-[420px] w-full rounded-[1.75rem] object-cover shadow-card"
-        width="1200"
-        height="840"
-      />
+      <div class="image-frame relative z-10 h-[420px] w-full rounded-[1.75rem] shadow-card">
+        <img
+          src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=1200&q=80"
+          alt="Professionals in a discussion during a workplace meeting"
+          width="1200"
+          height="840"
+        />
+      </div>
     </div>
   </div>
 </section>
@@ -34,11 +35,12 @@
 <section class="section bg-white" id="about-pranam">
   <div class="site-container grid items-center gap-12 lg:grid-cols-2">
     <div class="relative">
-      <img
-        src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1100&q=80"
-        alt="Collaborative team working together in a bright office"
-        class="h-[420px] w-full rounded-card object-cover"
-      />
+      <div class="image-frame h-[420px] w-full rounded-card">
+        <img
+          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1100&q=80"
+          alt="Collaborative team working together in a bright office"
+        />
+      </div>
       <div class="glass absolute -bottom-6 left-6 rounded-2xl px-5 py-4 shadow-card">
         <p class="text-xs uppercase tracking-widest text-ink-muted">Established</p>
         <p class="font-display text-2xl font-semibold text-green-dark">Since 2026</p>
@@ -48,7 +50,7 @@
       <p class="eyebrow">About PRANAM</p>
       <h2 class="display mt-3">People. Opportunities. Growth.</h2>
       <p class="mt-5 text-ink-muted leading-relaxed">
-        PRANAM Consultancy is a Mumbai-based HR and manpower consulting organisation founded around 2026 by Prashant Chavan & Poonam Phatak. We work with organisations to support recruitment, staffing, payroll, compliance, and workforce requirements — with equal care for people and business outcomes.
+        <%= site.legalName %> is an HR and manpower consulting organisation based in <%= site.officeArea %>, <%= site.city %>, founded around <%= site.foundedYear %> by <%= site.founder %> and <%= site.coFounder %>. We support recruitment, staffing, payroll, compliance, and workforce requirements with equal care for people and business outcomes.
       </p>
       <ul class="mt-8 space-y-5">
         <li>
@@ -129,21 +131,23 @@
         <a class="btn-secondary" href="/candidates">Submit Your Resume</a>
       </div>
     </div>
-    <img
-      src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1100&q=80"
-      alt="Candidate speaking with a recruiter in a professional setting"
-      class="h-80 w-full rounded-card object-cover"
-    />
+    <div class="image-frame h-80 w-full rounded-card">
+      <img
+        src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1100&q=80"
+        alt="Candidate speaking with a recruiter in a professional setting"
+      />
+    </div>
   </div>
 </section>
 
 <section class="section">
   <div class="site-container grid items-center gap-10 lg:grid-cols-2">
-    <img
-      src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1100&q=80"
-      alt="Business colleagues reviewing hiring plans together"
-      class="order-2 h-80 w-full rounded-card object-cover lg:order-1"
-    />
+    <div class="image-frame order-2 h-80 w-full rounded-card lg:order-1">
+      <img
+        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1100&q=80"
+        alt="Business colleagues reviewing hiring plans together"
+      />
+    </div>
     <div class="order-1 lg:order-2">
       <p class="eyebrow">Employers</p>
       <h2 class="display mt-3">Need the Right People for Your Business?</h2>
@@ -197,23 +201,35 @@
 </section>
 
 <section class="section bg-white">
-  <div class="site-container grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-    <div>
-      <p class="eyebrow">Leadership</p>
-      <h2 class="display mt-3"><%= site.founder %></h2>
-      <p class="mt-2 text-sm font-medium text-green-dark">Founder — <%= site.legalName %></p>
-      <p class="mt-5 leading-relaxed text-ink-muted">
-        Prashant Chavan established PRANAM Consultancy to help organisations in Mumbai and across India meet practical workforce needs. Under his leadership, the firm focuses on recruitment, staffing, payroll, compliance, and long-term manpower support — connecting people with roles that fit, and businesses with teams they can rely on.
-      </p>
+  <div class="site-container">
+    <p class="eyebrow">Leadership</p>
+    <h2 class="display mt-3">Meet our founders</h2>
+    <p class="mt-5 max-w-3xl leading-relaxed text-ink-muted">
+      Prashant Chavan, Founder, and Poonam Phatak Chavan, Co-Founder, lead PRANAM Consultancy in supporting practical workforce needs across Mumbai and India.
+    </p>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      <% site.founders.forEach((person) => { %>
+        <article class="card grid gap-6 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] sm:items-center">
+          <div class="image-frame aspect-[4/5] w-full rounded-card">
+            <img
+              src="<%= person.image %>"
+              alt="Illustrative portrait of <%= person.name %>"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <p class="eyebrow"><%= person.title %></p>
+            <h3 class="mt-2 font-display text-2xl font-semibold text-ink"><%= person.name %></h3>
+            <p class="mt-3 text-sm text-ink-muted"><%= site.legalName %></p>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+    <div class="mt-8 max-w-3xl">
       <blockquote class="mt-8 border-l-2 border-green-light pl-5 text-lg font-display text-ink">
         “The right people can transform the way a business grows.”
         <footer class="mt-2 text-sm text-ink-muted">Brand statement for PRANAM Consultancy — not a verified public quotation.</footer>
       </blockquote>
-    </div>
-    <div class="rounded-card bg-surface-mint p-6">
-      <div class="flex aspect-[4/5] items-end rounded-[1.25rem] bg-gradient-to-b from-green-light/40 to-green-dark/20 p-6">
-        <p class="text-sm text-green-dark">Professional portrait placeholder</p>
-      </div>
     </div>
   </div>
 </section>
@@ -223,28 +239,27 @@
     <div>
       <h2 class="display">Rooted in Mumbai. Connected to Opportunity.</h2>
       <p class="lede mt-4">
-        Our work begins in Mumbai, Maharashtra, India — a city that moves on people, enterprise, and ambition. From this base we support workforce requirements with a pan-India service capability. Specific additional office locations will be listed here once independently confirmed.
+        Our work begins in Goregaon West, Mumbai, Maharashtra, India — a city that moves on people, enterprise, and ambition. From this base we support workforce requirements with a pan-India service capability.
       </p>
     </div>
     <div class="relative overflow-hidden rounded-card bg-green-dark p-10 text-white">
       <p class="text-sm uppercase tracking-[0.2em] text-green-light">Location</p>
-      <p class="mt-4 font-display text-3xl font-semibold">Mumbai</p>
-      <p class="mt-2 text-white/75">Maharashtra, India</p>
+      <p class="mt-4 font-display text-3xl font-semibold"><%= site.officeArea %></p>
+      <p class="mt-2 text-white/75"><%= site.city %>, <%= site.state %>, <%= site.country %></p>
     </div>
   </div>
 </section>
 
 <section class="section bg-white">
   <div class="site-container">
-    <p class="eyebrow">Voices</p>
-    <h2 class="display mt-3">What People Say</h2>
-    <p class="lede mt-4">Real client and candidate testimonials will appear here. These cards are placeholders ready for a future CMS or database.</p>
-    <div class="mt-10 grid gap-5 md:grid-cols-3">
-      <% ['Client', 'Candidate', 'Partner'].forEach((role) => { %>
-        <figure class="card">
-          <blockquote class="text-ink-muted">“<%= role %> testimonial will appear here.”</blockquote>
-          <figcaption class="mt-4 text-sm font-medium text-ink"><%= role %> name · Organisation</figcaption>
-        </figure>
+    <p class="eyebrow">Our clients</p>
+    <h2 class="display mt-3">Organisations We Work With</h2>
+    <p class="lede mt-4">We currently work with these organisations to support their workforce requirements.</p>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2">
+      <% ['SB Fab', 'Nirmal Enterprises'].forEach((client) => { %>
+        <div class="card flex min-h-32 items-center justify-center text-center">
+          <h3 class="font-display text-2xl font-semibold text-green-dark"><%= client %></h3>
+        </div>
       <% }) %>
     </div>
   </div>

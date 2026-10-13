@@ -8,8 +8,43 @@
 
 <section class="section">
   <div class="site-container">
-    <form class="card mb-8 grid gap-3 md:grid-cols-5" method="get" action="/careers">
-      <input class="field" name="q" value="<%= filters.q %>" placeholder="Search" />
+    <form class="card mb-8 grid gap-3 md:grid-cols-6" method="get" action="/careers">
+      <div class="job-search relative md:col-span-2">
+        <label class="sr-only" for="job-search-input">Search demo jobs</label>
+        <input
+          class="field"
+          id="job-search-input"
+          type="search"
+          name="q"
+          value="<%= filters.q %>"
+          placeholder="Search roles, skills, or industries"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-controls="job-search-suggestions"
+          aria-expanded="false"
+          autocomplete="off"
+        />
+        <div class="job-suggestions" data-job-suggestions hidden>
+          <p class="px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-wider text-ink-muted" data-suggestion-heading>Popular demo jobs</p>
+          <div id="job-search-suggestions" role="listbox" aria-label="Suggested demo jobs">
+            <% suggestedJobs.forEach((job) => { %>
+              <button
+                class="job-suggestion"
+                type="button"
+                role="option"
+                aria-selected="false"
+                data-job-suggestion
+                data-title="<%= job.title %>"
+                data-search="<%= `${job.title} ${job.excerpt} ${job.category} ${job.location} ${job.experience} ${job.employmentType}` %>"
+              >
+                <span class="block font-semibold text-ink"><%= job.title %></span>
+                <span class="mt-0.5 block text-xs text-ink-muted"><%= job.category %> · <%= job.location %></span>
+              </button>
+            <% }) %>
+          </div>
+          <p class="px-3 py-3 text-sm text-ink-muted" data-suggestion-empty hidden>No matching job suggestions. Try another keyword.</p>
+        </div>
+      </div>
       <select class="field" name="location">
         <option value="">Location</option>
         <% options.locations.forEach((item) => { %>
@@ -34,7 +69,7 @@
           <option <%= filters.type === item ? 'selected' : '' %>><%= item %></option>
         <% }) %>
       </select>
-      <button class="btn-primary md:col-span-5 justify-self-start" type="submit">Filter</button>
+      <button class="btn-primary md:col-span-6 justify-self-start" type="submit">Search jobs</button>
     </form>
 
     <div class="grid gap-4">

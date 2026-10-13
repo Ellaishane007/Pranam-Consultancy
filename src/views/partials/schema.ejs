@@ -5,10 +5,10 @@
   "name": site.legalName,
   "alternateName": site.shortName,
   "foundingDate": String(site.foundedYear),
-  "founder": { "@type": "Person", "name": site.founder },
+  "founder": site.founders.map((person) => ({ "@type": "Person", "name": person.name })),
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": site.city,
+    "addressLocality": `${site.officeArea}, ${site.city}`,
     "addressRegion": site.state,
     "addressCountry": "IN"
   },

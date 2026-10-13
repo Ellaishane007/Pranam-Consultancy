@@ -3,7 +3,7 @@
     <div>
       <p class="font-display text-xl font-bold text-green-dark">PRANAM Consultancy</p>
       <p class="mt-3 text-sm leading-relaxed text-ink-muted">
-        <%= site.legalName %> is a Mumbai-based HR and manpower consulting organisation supporting recruitment, staffing, payroll, and workforce requirements.
+        <%= site.legalName %> is based in <%= site.officeArea %>, <%= site.city %>, and supports recruitment, staffing, payroll, and workforce requirements.
       </p>
     </div>
     <div>
@@ -26,19 +26,43 @@
     </div>
     <div>
       <p class="text-sm font-semibold text-ink">Connect</p>
-      <ul class="mt-4 space-y-2 text-sm text-ink-muted">
-        <% if (site.contact.linkedin) { %>
-          <li><a class="hover:text-green-dark" href="<%= site.contact.linkedin %>">LinkedIn</a></li>
-        <% } else { %>
-          <li>LinkedIn — to be added</li>
-        <% } %>
-        <% if (site.contact.instagram) { %>
-          <li><a class="hover:text-green-dark" href="<%= site.contact.instagram %>">Instagram</a></li>
-        <% } else { %>
-          <li>Instagram — to be added</li>
-        <% } %>
-        <li><%= site.contact.email ? site.contact.email : 'Email — to be added' %></li>
-        <li><%= site.contact.phone ? site.contact.phone : 'Phone — to be added' %></li>
+      <ul class="mt-4 space-y-3 text-sm text-ink-muted">
+        <li>
+          <% if (site.contact.linkedin) { %>
+            <a class="inline-flex items-center gap-2 hover:text-green-dark" href="<%= site.contact.linkedin %>" target="_blank" rel="noopener noreferrer">
+              <%- include('./contact-icon', { name: 'linkedin' }) %><span>LinkedIn</span>
+            </a>
+          <% } else { %>
+            <span class="inline-flex items-center gap-2"><%- include('./contact-icon', { name: 'linkedin' }) %><span>LinkedIn — to be added</span></span>
+          <% } %>
+        </li>
+        <li>
+          <% if (site.contact.instagram) { %>
+            <a class="inline-flex items-center gap-2 hover:text-green-dark" href="<%= site.contact.instagram %>" target="_blank" rel="noopener noreferrer">
+              <%- include('./contact-icon', { name: 'instagram' }) %><span>Instagram</span>
+            </a>
+          <% } else { %>
+            <span class="inline-flex items-center gap-2"><%- include('./contact-icon', { name: 'instagram' }) %><span>Instagram — to be added</span></span>
+          <% } %>
+        </li>
+        <li>
+          <% if (site.contact.email) { %>
+            <a class="inline-flex items-center gap-2 hover:text-green-dark" href="mailto:<%= site.contact.email %>">
+              <%- include('./contact-icon', { name: 'email' }) %><span><%= site.contact.email %></span>
+            </a>
+          <% } else { %>
+            <span class="inline-flex items-center gap-2"><%- include('./contact-icon', { name: 'email' }) %><span>Email — to be added</span></span>
+          <% } %>
+        </li>
+        <li>
+          <% if (site.contact.phone) { %>
+            <a class="inline-flex items-center gap-2 hover:text-green-dark" href="tel:<%= site.contact.phone.replace(/[^+\d]/g, '') %>">
+              <%- include('./contact-icon', { name: 'phone' }) %><span><%= site.contact.phone %></span>
+            </a>
+          <% } else { %>
+            <span class="inline-flex items-center gap-2"><%- include('./contact-icon', { name: 'phone' }) %><span>Phone — to be added</span></span>
+          <% } %>
+        </li>
       </ul>
     </div>
   </div>

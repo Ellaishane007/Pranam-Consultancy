@@ -3,8 +3,8 @@ const fs = require("fs");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const session = require("express-session");
-const cookieParser = require("cookie-parser");
 const { csrfSync } = require("csrf-sync");
+const MongoStore = require("connect-mongo");
 const env = require("../config/env");
 
 const { csrfSynchronisedProtection, generateToken } = csrfSync({
@@ -13,7 +13,7 @@ const { csrfSynchronisedProtection, generateToken } = csrfSync({
 
 function security(app) {
   app.disable("x-powered-by");
-  app.set("trust proxy", 1);
+  app.set("trust proxy", env.trustProxy);
   app.use(
     helmet({
       contentSecurityPolicy: {
@@ -29,13 +29,19 @@ function security(app) {
       }
     })
   );
-  app.use(cookieParser());
   app.use(
     session({
       name: "pranam.sid",
       secret: env.sessionSecret,
       resave: false,
       saveUninitialized: false,
+      store: env.mongoUri
+        ? MongoStore.create({
+            mongoUrl: env.mongoUri,
+            collectionName: "sessions",
+            ttl: 60 * 60 * 8
+          })
+        : undefined,
       cookie: {
         httpOnly: true,
         sameSite: "lax",

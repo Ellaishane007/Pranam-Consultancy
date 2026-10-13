@@ -10,14 +10,15 @@
   "scripts": {
     "dev": "concurrently -k \"npm run watch:css\" \"npm run watch:server\"",
     "watch:server": "node --watch src/server.js",
-    "watch:css": "npx tailwindcss -i ./src/styles/input.css -o ./src/public/css/app.css --watch",
-    "build:css": "npx tailwindcss -i ./src/styles/input.css -o ./src/public/css/app.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/public/css/app.css --watch",
+    "build:css": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/public/css/app.css --minify",
     "build": "npm run build:css",
+    "test": "node --test",
     "start": "node src/server.js"
   },
   "dependencies": {
     "compression": "^1.7.5",
-    "cookie-parser": "^1.4.7",
+    "connect-mongo": "^6.0.0",
     "csrf-sync": "^4.0.3",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
@@ -25,16 +26,19 @@
     "express-ejs-layouts": "^2.5.1",
     "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
-    "express-validator": "^7.2.1",
     "helmet": "^8.0.0",
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.4.0",
     "sanitize-html": "^2.14.0",
     "uuid": "^11.0.5"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
     "concurrently": "^9.1.2",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^4.3.3"
+  },
+  "overrides": {
+    "@parcel/watcher": "2.6.0"
   }
 }
