@@ -67,6 +67,22 @@ docker run --name pranam-consultancy \
 
 Replace the example hostname and values. Configure the proxy to forward HTTPS and client IP information correctly. Do not publish the MongoDB connection string in logs or documentation.
 
+## Netlify deployment
+
+This Express app runs as a Netlify Function, with `src/public` deployed as static assets.
+
+1. Push the repository to GitHub, then in Netlify choose **Add new site → Import an existing project** and connect the repository. Netlify reads the build and routing settings from `netlify.toml`.
+2. Set these values in **Site configuration → Environment variables** for the production deploy:
+   - `NODE_ENV=production`
+   - `SITE_URL=https://<your-site-name>.netlify.app` (use the exact Netlify site URL)
+   - `SESSION_SECRET` to a unique random value of at least 32 characters
+   - `MONGODB_URI` to a reachable MongoDB deployment
+   - `TRUST_PROXY=1`
+   - `MAX_RESUME_MB=4` to keep multipart resume submissions under Netlify Function request-size limits
+3. Deploy the site. If the generated `*.netlify.app` URL differs from `SITE_URL`, update `SITE_URL` and redeploy. Add verified `CONTACT_*` values as needed.
+
+Netlify Function storage under `/tmp` is temporary and can be cleared between invocations. This deployment setup does **not** provide durable resume-file storage; connect a private object-storage service before accepting real candidate resumes. MongoDB stores the form records and sessions, but does not persist uploaded files.
+
 ## Content and launch checks
 
 - Career listings are explicitly marked as demo content until replaced with current vacancies.

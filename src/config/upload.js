@@ -5,7 +5,7 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const env = require("./env");
 
-const uploadRoot = path.join(__dirname, "../../uploads/resumes");
+const uploadRoot = env.resumeUploadDir;
 fs.mkdirSync(uploadRoot, { recursive: true });
 
 const allowed = new Map([

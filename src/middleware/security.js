@@ -1,10 +1,9 @@
-const path = require("path");
 const fs = require("fs");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const session = require("express-session");
 const { csrfSync } = require("csrf-sync");
-const MongoStore = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
 const env = require("../config/env");
 
 const { csrfSynchronisedProtection, generateToken } = csrfSync({
@@ -68,7 +67,7 @@ const formLimiter = rateLimit({
 });
 
 function ensureUploadDirs() {
-  fs.mkdirSync(path.join(__dirname, "../../uploads/resumes"), { recursive: true });
+  fs.mkdirSync(env.resumeUploadDir, { recursive: true });
 }
 
 module.exports = {

@@ -16,7 +16,9 @@ ensureUploadDirs();
 function createApp() {
   const app = express();
   app.set("view engine", "ejs");
-  app.set("views", path.join(__dirname, "views"));
+  app.set("views", process.env.NETLIFY
+    ? path.join(process.cwd(), "src", "views")
+    : path.join(__dirname, "views"));
   app.use(expressLayouts);
   app.set("layout", "layouts/main");
 

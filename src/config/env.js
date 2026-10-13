@@ -49,5 +49,8 @@ module.exports = {
   sessionSecret,
   mongoUri,
   trustProxy,
-  maxResumeMb: integerSetting("MAX_RESUME_MB", 5, 1, 50)
+  maxResumeMb: integerSetting("MAX_RESUME_MB", 5, 1, 50),
+  resumeUploadDir: process.env.NETLIFY
+    ? path.join("/tmp", "pranam-consultancy", "resumes")
+    : path.join(__dirname, "../../uploads/resumes")
 };
