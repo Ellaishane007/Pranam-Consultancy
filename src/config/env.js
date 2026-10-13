@@ -3,6 +3,9 @@ require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 
 const nodeEnv = process.env.NODE_ENV || "development";
 const production = nodeEnv === "production";
+const isNetlifyFunction = Boolean(
+  process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT
+);
 
 function integerSetting(name, fallback, min, max) {
   const value = process.env[name];
@@ -50,7 +53,7 @@ module.exports = {
   mongoUri,
   trustProxy,
   maxResumeMb: integerSetting("MAX_RESUME_MB", 5, 1, 50),
-  resumeUploadDir: process.env.NETLIFY
-    ? path.join("/tmp", "pranam-consultancy", "resumes")
+  resumeUploadDir: isNetlifyFunction
+    ? path.posix.join("/tmp", "pranam-consultancy", "resumes")
     : path.join(__dirname, "../../uploads/resumes")
 };
