@@ -1,4 +1,6 @@
+const fs = require("fs");
 const path = require("path");
+const ejs = require("ejs");
 const express = require("express");
 const compression = require("compression");
 const morgan = require("morgan");
@@ -15,10 +17,11 @@ ensureUploadDirs();
 
 function createApp() {
   const app = express();
+  // Register EJS explicitly so bundlers (esbuild on Netlify) include it;
+  // Express otherwise loads the engine with a dynamic require it can't trace.
+  app.engine("ejs", ejs.__express);
   app.set("view engine", "ejs");
-  app.set("views", process.env.NETLIFY
-    ? path.join(process.cwd(), "src", "views")
-    : path.join(__dirname, "views"));
+  app.set("views", resolveViewsDir());
   app.use(expressLayouts);
   app.set("layout", "layouts/main");
 
@@ -55,6 +58,15 @@ function createApp() {
   app.use(notFound);
   app.use(errorHandler);
   return app;
+}
+
+function resolveViewsDir() {
+  const candidates = [
+    path.join(__dirname, "views"),
+    path.join(process.env.LAMBDA_TASK_ROOT || process.cwd(), "src", "views"),
+    path.join(process.cwd(), "src", "views")
+  ];
+  return candidates.find((dir) => fs.existsSync(path.join(dir, "layouts", "main.ejs"))) || candidates[0];
 }
 
 module.exports = { createApp };
